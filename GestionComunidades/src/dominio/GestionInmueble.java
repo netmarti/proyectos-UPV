@@ -7,6 +7,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import excepciones.InmuebleYaExiste;
+
 public class GestionInmueble extends Exception{
 
 	private ArrayList<Inmueble> lista = new ArrayList<Inmueble>();

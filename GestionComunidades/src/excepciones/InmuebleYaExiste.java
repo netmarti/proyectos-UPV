@@ -1,4 +1,4 @@
-package dominio;
+package excepciones;
 
 public class InmuebleYaExiste extends Exception{
 	
