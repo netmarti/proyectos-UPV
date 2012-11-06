@@ -1,4 +1,4 @@
-package dominio;
+package gestion;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,9 +7,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import dominio.Inmueble;
+
 import excepciones.InmuebleYaExiste;
 
-public class GestionInmueble extends Exception{
+public class GestionInmuebles extends Exception{
 
 	private ArrayList<Inmueble> lista = new ArrayList<Inmueble>();
 
