@@ -21,7 +21,6 @@ public class ModeloTablaInmueble extends DefaultTableModel {
 	public void borraInmueblePorPosicion(int row){
 		Integer id=(Integer)getValueAt(row, 0);
 		gestion.borraInmueblePorId(id);
-		this removeRow(row);
 		this.removeRow(row);
 	}
 	public Inmueble recuperaInmueblePorPosicion(int row){
@@ -31,7 +30,7 @@ public class ModeloTablaInmueble extends DefaultTableModel {
 	public void cargaInmuebles(String fichero){
 		gestion.cargaListaInmuebles(fichero);
 		this.getDataVector().clear();
-		for(Inmueble i:gestion.getListaInmuebles()) this.addToTabla(i); 
+		for(Inmueble i:gestion.getLista()) this.addToTabla(i); 
 	}
 	public void guardaInmuebles(String fichero){
 		gestion.guardaListaInmuebles(fichero);

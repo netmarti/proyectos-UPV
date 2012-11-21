@@ -23,7 +23,7 @@ public class GestionInmuebles extends Exception{
 		this.lista = lista;
 	}
 
-	void addInmueble(Inmueble i) throws InmuebleYaExiste { //No se como se implementa esta parte
+	public void addInmueble(Inmueble i) throws InmuebleYaExiste { 
 		if(lista.contains(i)) {
 			throw new InmuebleYaExiste();
 		} else {
@@ -40,7 +40,7 @@ public class GestionInmuebles extends Exception{
 		return false;
 	}
 	
-	public boolean containsid(int id) {
+	public boolean contains(int id) {
 		for(Inmueble i : lista) {
 			if(i.getId()==id)
 				return true;
@@ -48,7 +48,7 @@ public class GestionInmuebles extends Exception{
 		return false;
 	}
 
-	Inmueble getInmueblePorId(int id) {
+	public Inmueble getInmueblePorId(int id) {
 		Inmueble aux = null;
 		for(Inmueble i : lista) {
 			if(id==i.getId())
@@ -57,14 +57,13 @@ public class GestionInmuebles extends Exception{
 		return aux;
 	}
 
-	void borraInmueblePorId(int id) {
-		lista.remove(id);
-			
+	public void borraInmueblePorId(int id) {
+		lista.remove(this.getInmueblePorId(id));
 	}
 	
-	void guardaListaInmuebles(String fichero) {
+	public void guardaListaInmuebles(String fichero) {
 		try { 
-			ObjectOutputStream objout =  new ObjectOutputStream ( new FileOutputStream("listaInmueble.dat")); 
+			ObjectOutputStream objout =  new ObjectOutputStream ( new FileOutputStream(fichero)); 
 			objout.writeObject(lista); 
 			objout.close(); 
 			System.out.println("Archivo guardado."); 
@@ -73,9 +72,9 @@ public class GestionInmuebles extends Exception{
 		} 
 	}
 
-	void cargaListaInmuebles(String fichero) {
+	public void cargaListaInmuebles(String fichero) {
 		try { 
-			ObjectInputStream objin =  new ObjectInputStream (new FileInputStream("listaInmueble.dat")); 
+			ObjectInputStream objin =  new ObjectInputStream (new FileInputStream(fichero)); 
 			lista= (ArrayList<Inmueble>) objin.readObject(); 
 			objin.close();
 			System.out.println("Archivo leido."); 

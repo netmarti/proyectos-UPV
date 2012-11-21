@@ -3,7 +3,7 @@ package dominio;
 import java.io.Serializable;
 
 public class Inmueble  implements Serializable {
-	
+
 	private int id;
 	private String escalera, piso, puerta;
 	private float percent;
@@ -56,7 +56,14 @@ public class Inmueble  implements Serializable {
 	public void setPercent(float percent) {
 		this.percent = percent;
 	}
-
+	
+	@Override
+	public boolean equals(Object arg0) {
+		// TODO Auto-generated method stub
+		Inmueble i=(Inmueble) arg0;
+		return i.id==this.id;
+	}
+	
 	public String toString() {
 		// TODO Auto-generated method stub
 		return "Poner la salida de todos los datos.";
