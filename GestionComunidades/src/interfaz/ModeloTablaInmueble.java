@@ -10,6 +10,17 @@ import gestion.GestionInmuebles;
 
 public class ModeloTablaInmueble extends DefaultTableModel {
 	private GestionInmuebles gestion;
+	
+	private boolean flag =false;
+
+	public boolean isFlag() {
+		return flag;
+	}
+
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+	
 	public ModeloTablaInmueble (GestionInmuebles gestion){
 		super(null,new String[]{"id", "Escalera", "Piso", " Puerta"});
 		this.gestion=gestion;

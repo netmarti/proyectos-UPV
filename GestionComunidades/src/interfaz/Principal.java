@@ -32,8 +32,6 @@ import java.awt.Cursor;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import javax.swing.JLabel;
-import java.awt.Color;
 
 public class Principal extends JFrame {
 
@@ -43,8 +41,6 @@ public class Principal extends JFrame {
 	private ModeloTablaInmueble modelo;
 	private GestionInmuebles gestion =new GestionInmuebles();
 	private File f=null;
-	
-	private boolean flag =false;
 
 	/**
 	 * Launch the application.
@@ -68,7 +64,7 @@ public class Principal extends JFrame {
 	public Principal() {
 
 		modelo= new ModeloTablaInmueble(gestion);
-		
+
 		ActionListener cargarListener =new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser chooser = new JFileChooser();
@@ -91,30 +87,35 @@ public class Principal extends JFrame {
 				}
 			}
 		};
-		
-		addWindowListener(new WindowAdapter() {
+
+		WindowAdapter ventanaListener =new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				if(f==null) {
+				if(tabla.getRowCount()==0 || modelo.isFlag()==false) {
+					int resp;
+					resp=JOptionPane.showConfirmDialog(null,  "ÀEst‡ seguro de que desea salir?", "Aviso",JOptionPane.YES_NO_OPTION);
+					if (resp==JOptionPane.YES_OPTION)
+						System.exit(0);					
+				} else if(f==null || modelo.isFlag()==true) {
 					try {
 						JFileChooser chooser = new JFileChooser();
 						if(chooser.showSaveDialog(null)==JFileChooser.APPROVE_OPTION) {
 							f=chooser.getSelectedFile();
 							modelo.guardaInmuebles(f.getAbsolutePath());
 							JOptionPane.showMessageDialog(null, "Archivo guardado.");
+							int resp;
+							resp=JOptionPane.showConfirmDialog(null,  "ÀEst‡ seguro de que desea salir?", "Aviso",JOptionPane.YES_NO_OPTION);
+							if (resp==JOptionPane.YES_OPTION)
+								System.exit(0);
 						}
 					} catch (Exception e1) {
 						JOptionPane.showMessageDialog(null, "No se ha podido guardar el archivo.");
 					}
-				} else if(flag) {
-					
 				}
-				int resp;
-				resp=JOptionPane.showConfirmDialog(null,  "ÀEst‡ seguro de que desea salir?", "Aviso",JOptionPane.YES_NO_OPTION);
-				if (resp==JOptionPane.YES_OPTION)
-					System.exit(0);
 			}
-		});
+		};
+		
+		addWindowListener(ventanaListener);
 
 		setTitle("Gestion Inmuebles");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("home.png")));
@@ -224,8 +225,10 @@ public class Principal extends JFrame {
 				resp=JOptionPane.showConfirmDialog(null,  "Est‡ a punto de borrar el inmueble con \"id\" "
 						+modelo.recuperaInmueblePorPosicion(tabla.getSelectedRow()).getId()+
 						" ÀEst‡s seguro de querer borrarlo?", "Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-				if (resp==JOptionPane.YES_OPTION)
+				if (resp==JOptionPane.YES_OPTION) {
 					modelo.borraInmueblePorPosicion(tabla.getSelectedRow());
+					modelo.setFlag(true);
+				}
 			}
 		});
 		posicionBotonesPanel.add(delButton);
@@ -240,17 +243,22 @@ public class Principal extends JFrame {
 			}
 		});
 		posicionBotonesPanel.add(detalleButton);
-		
+
 		JPanel panel = new JPanel();
 		jContentPane.add(panel, BorderLayout.SOUTH);
 		panel.setLayout(new GridLayout(1, 2, 0, 0));
-		
+
 		Label statusbar = new Label(new Date().toString());
 		panel.add(statusbar);
 		Label nombres = new Label("SERGIU Y PATRICK");
 		nombres.setEnabled(false);
 		nombres.setAlignment(Label.RIGHT);
 		panel.add(nombres);
+	}
+
+	protected void guardarArchivo() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

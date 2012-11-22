@@ -39,6 +39,7 @@ public class VentanaDetalle extends JFrame {
 		setTitle("Insetar Inmueble");
 		modelo=m;
 		initialize();
+		
 	}
 	
 	/**
@@ -151,6 +152,7 @@ public class VentanaDetalle extends JFrame {
 				//Inmueble inmueble=new Inmueble(Integer.parseInt(idTextField.getText()), escaleraTextField.getText(), pisoTextField.getText(), puertaTextField.getText(), 0);
 				try {
 					modelo.addInmueble(new Inmueble(Integer.parseInt(idTextField.getText()), escaleraTextField.getText(), pisoTextField.getText(), puertaTextField.getText(), 0));
+					modelo.setFlag(true);
 					dispose();
 				} catch (InmuebleYaExiste e1) {
 					// TODO Auto-generated catch block
