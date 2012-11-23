@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -64,7 +65,7 @@ public class VentanaDetalle extends JFrame {
 	
 	public void initialize() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("home.png")));
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		jContentPane = new JPanel();
 		jContentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -148,6 +149,7 @@ public class VentanaDetalle extends JFrame {
 		
 		guardarButton = new JButton("Guardar");
 		guardarButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				//Inmueble inmueble=new Inmueble(Integer.parseInt(idTextField.getText()), escaleraTextField.getText(), pisoTextField.getText(), puertaTextField.getText(), 0);
 				try {
@@ -164,6 +166,7 @@ public class VentanaDetalle extends JFrame {
 		
 		JButton volverButton = new JButton("Volver");
 		volverButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}

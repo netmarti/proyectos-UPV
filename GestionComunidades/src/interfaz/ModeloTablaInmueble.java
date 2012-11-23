@@ -30,19 +30,31 @@ public class ModeloTablaInmueble extends DefaultTableModel {
 		this.addToTabla(i);
 	}
 	public void borraInmueblePorPosicion(int row){
-		Integer id=(Integer)getValueAt(row, 0);
+		int id=(Integer)this.getValueAt(row, 0);
 		gestion.borraInmueblePorId(id);
 		this.removeRow(row);
 	}
+	@Override
+	public boolean isCellEditable(int row, int column) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public Inmueble recuperaInmueblePorPosicion(int row){
-		Integer id=(Integer)getValueAt(row, 0);
+		int id=(Integer)this.getValueAt(row, 0);
 		return gestion.getInmueblePorId(id);
 	}
 	public void cargaInmuebles(String fichero){
 		gestion.cargaListaInmuebles(fichero);
-		this.getDataVector().clear();
+		this.vaciarModelo();
 		for(Inmueble i:gestion.getLista()) this.addToTabla(i); 
 	}
+	
+	public void vaciarModelo() {
+		// TODO Auto-generated method stub
+		this.getDataVector().clear();
+	}
+
 	public void guardaInmuebles(String fichero){
 		gestion.guardaListaInmuebles(fichero);
 	}
