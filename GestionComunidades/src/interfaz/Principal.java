@@ -24,6 +24,7 @@ import javax.swing.WindowConstants;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
@@ -260,8 +261,7 @@ public class Principal extends JFrame {
 				if(modelo.getRowCount()==0) {
 					JOptionPane.showMessageDialog(null, "La lista est‡ vacia.\nNo hay nada que borrar.");
 				} else if(tabla.getSelectedRowCount()==1) {
-					int resp;
-					resp=JOptionPane.showConfirmDialog(null,  "Est‡ a punto de borrar el inmueble con \"id\" "
+					int resp=JOptionPane.showConfirmDialog(null,  "Est‡ a punto de borrar el inmueble con \"id\" "
 							+modelo.recuperaInmueblePorPosicion(tabla.getSelectedRow()).getId()+
 							" ÀEst‡s seguro de querer borrarlo?", "Aviso",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if (resp==JOptionPane.YES_OPTION) {
@@ -269,17 +269,25 @@ public class Principal extends JFrame {
 						modelo.setFlag(true);
 					}
 				} else if(tabla.getRowCount()==tabla.getSelectedRowCount()) {
-					int resp;
-					resp=JOptionPane.showConfirmDialog(null,"Va a borrar toda la tabla.\nÀEst‡ seguro?", "Aviso",JOptionPane.YES_NO_OPTION);
+					int resp=JOptionPane.showConfirmDialog(null,"Va a borrar toda la tabla.\nÀEst‡ seguro?", "Aviso",JOptionPane.YES_NO_OPTION);
 					if (resp==JOptionPane.YES_OPTION) {
 						modelo.vaciarModelo();
 					}
 				} else {
-					int resp;
-					resp=JOptionPane.showConfirmDialog(null,"Va a borrar los inmuebles con \"id\":\n"+
-							/*tabla.getSelectedRows().toString()
-							+*/"ÀEst‡ seguro?", "Aviso",JOptionPane.YES_NO_OPTION);
-					System.out.println(tabla.getSelectedRows().toString());
+					String listaIdSeleccionados =new String();
+					for(int i:tabla.getSelectedRows()) {
+						if(i==tabla.getSelectedRows()[tabla.getSelectedRows().length-1])
+							listaIdSeleccionados += "y " + modelo.recuperaInmueblePorPosicion(i).getId();
+						else if(i==tabla.getSelectedRows()[tabla.getSelectedRows().length-2])
+							listaIdSeleccionados += modelo.recuperaInmueblePorPosicion(i).getId() + " ";
+						else listaIdSeleccionados += modelo.recuperaInmueblePorPosicion(i).getId() + ", ";
+					}
+					//System.out.println(Arrays.toString(tabla.getSelectedRows()).substring(1, Arrays.toString(tabla.getSelectedRows()).length()-4)+" y"+Arrays.toString(tabla.getSelectedRows()).substring(Arrays.toString(tabla.getSelectedRows()).length()-3).replace(",",", ").replace("[", "").replace("]", ""));
+					//System.out.println(Arrays.toString(tabla.getSelectedRows()).replace(",",", ").replace("[", "").replace("]", ""));
+					int resp=JOptionPane.showConfirmDialog(null,"Va a borrar los inmuebles con \"id\":\n"+
+							listaIdSeleccionados
+							+"  ÀEst‡ seguro?", "Aviso",JOptionPane.YES_NO_OPTION);
+					
 					if (resp==JOptionPane.YES_OPTION) {
 						for(int i=tabla.getSelectedRows().length-1; i>=0; i--) {
 							modelo.borraInmueblePorPosicion(tabla.getSelectedRows()[i]);
